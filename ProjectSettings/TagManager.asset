@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Player2
+  - Itembad
+  - Itembad2
+  - Deathzone
   layers:
   - Default
   - TransparentFX
