@@ -26,6 +26,7 @@ public class BulletController : MonoBehaviour
     {
         if (collision.CompareTag("ItemGood") )
         {
+            myGameManager.AddScore();
             Destroy(collision.gameObject);
         }
         else if (collision.CompareTag("ItemBad"))

@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("ItemGood"))
         {
-        Destroy(collision.gameObject);
-        myGameManager.AddScore();
+            Destroy(collision.gameObject);
+            myGameManager.AddScore();
         }
         else if (collision.CompareTag("Itembad"))
         { 
