@@ -24,7 +24,7 @@ public class BulletController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ItemGood") )
+        if (collision.CompareTag("ItemBad2") )
         {
             myGameManager.AddScore();
             Destroy(collision.gameObject);

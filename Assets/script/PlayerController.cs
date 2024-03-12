@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,17 +16,26 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D myrigidbody2D;
     private SpriteRenderer mySpriteRenderer;
     public GameObject Bullet;
-    public GameManager myGameManager;
-
+    //public GameManager myGameManager;
+    public TextMeshProUGUI scoreText;
+    private int score;
     // Start is called before the first frame update
     void Start()
     {
         myrigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        score = 0; scoreText.text = "Score: " + score;
+        UpdateScore(0);
         StartCoroutine(WalkCoRutine());
-        myGameManager = FindObjectOfType<GameManager>();
-    }
+    // myGameManager = FindObjectOfType<GameManager>();
+    //scoreText.text = myGameManager.score.ToString();
 
+}
+    private void UpdateScore(int scoreToAdd) 
+    { 
+        score += scoreToAdd; 
+        scoreText.text = "Score: " + score; 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -35,6 +45,22 @@ public class PlayerController : MonoBehaviour
         }
         myrigidbody2D.velocity = new Vector2(playerSpeed, myrigidbody2D.velocity.y);
         if (Input.GetKeyDown(KeyCode.E))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
             Instantiate(Bullet, transform.position, Quaternion.identity);
         }
@@ -60,18 +86,27 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("ItemGood"))
         {
             Destroy(collision.gameObject);
-            myGameManager.AddScore();
+            UpdateScore(1);
+            //myGameManager.AddScore();
+            //scoreText.text = myGameManager.textScore.ToString();
+
         }
         else if (collision.CompareTag("Itembad"))
         { 
             Destroy(collision.gameObject);
+            UpdateScore(1);
+
+
             PlayerDeath();
         }
         else if (collision.CompareTag("Itembad2"))
         {
             Destroy(collision.gameObject);
+            UpdateScore(1);
+
+
             PlayerDeath();
-        }
+        }        
         else if(collision.CompareTag("Deathzone"))
         {
             PlayerDeath();
