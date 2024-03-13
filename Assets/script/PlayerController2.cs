@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
-
-public class PlayerController : MonoBehaviour
+public class PlayerController2 : MonoBehaviour
 {
     public float playerJumpForce = 20f;
     public float playerSpeed = 5f;
@@ -19,7 +18,7 @@ public class PlayerController : MonoBehaviour
     //public GameManager myGameManager;
     public TextMeshProUGUI scoreText;
     private int score;
-    // Start is called before the first frame update
+
     void Start()
     {
         myrigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,21 +26,22 @@ public class PlayerController : MonoBehaviour
         score = 0; scoreText.text = "Score: " + score;
         UpdateScore(0);
         StartCoroutine(WalkCoRutine());
-    // myGameManager = FindObjectOfType<GameManager>();
-    //scoreText.text = myGameManager.score.ToString();
+        //myGameManager = FindObjectOfType<GameManager>();
+        //scoreText.text = myGameManager.score.ToString();
 
     }
-    private void UpdateScore(int scoreToAdd) 
-    { 
-        score += scoreToAdd; 
-        scoreText.text = "Score: " + score; 
+    private void UpdateScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score;
     }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            myrigidbody2D.velocity = new Vector2(myrigidbody2D.velocity.x,playerJumpForce);
+            myrigidbody2D.velocity = new Vector2(myrigidbody2D.velocity.x, playerJumpForce);
         }
         myrigidbody2D.velocity = new Vector2(playerSpeed, myrigidbody2D.velocity.y);
         if (Input.GetKeyDown(KeyCode.E))
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(Bullet, transform.position, Quaternion.identity);
         }
     }
+
 
     IEnumerator WalkCoRutine()
     {
@@ -60,10 +61,7 @@ public class PlayerController : MonoBehaviour
             index = 0;
         }
         StartCoroutine(WalkCoRutine());
-
-
     }
-
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -76,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         }
         else if (collision.CompareTag("Itembad"))
-        { 
+        {
             Destroy(collision.gameObject);
             UpdateScore(1);
 
@@ -90,14 +88,17 @@ public class PlayerController : MonoBehaviour
 
 
             PlayerDeath();
-        }        
-        else if(collision.CompareTag("Deathzone"))
+        }
+        else if (collision.CompareTag("Deathzone"))
         {
             PlayerDeath();
         }
+
+        void PlayerDeath()
+        {
+            SceneManager.LoadScene("Nivel1");
+        }
     }
-    void PlayerDeath()
-    {
-        SceneManager.LoadScene("Nivel1");
-    }
+
+
 }
